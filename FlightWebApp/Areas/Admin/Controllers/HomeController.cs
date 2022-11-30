@@ -61,9 +61,9 @@ namespace FlightWebApp.Areas.Admin.Controllers
             });
         }
         [HttpPost]
-        public async Task<IActionResult> Edit(int FlightId, FlightViewModel model)
+        public async Task<IActionResult> Edit(int id, FlightViewModel model)
         {
-            var flight = await db.Flights.FindAsync(FlightId);
+            var flight = await db.Flights.FindAsync(id);
             if (flight == null)
             {
                 return NotFound();
@@ -73,24 +73,24 @@ namespace FlightWebApp.Areas.Admin.Controllers
                 return View(model);
             }
               
-           model.Flight_name = flight.Flight_name;
-            model.Flight_descriptiom=flight.Flight_descriptiom;
-            model.Flight_Type=flight.Flight_Type;
-            model.flight_total_capacity = flight.flight_total_capacity;
+            flight.Flight_name = model.Flight_name;
+            flight.Flight_descriptiom=model.Flight_descriptiom;
+            flight.Flight_Type=model.Flight_Type;
+            flight.flight_total_capacity = model.flight_total_capacity;
             await db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        //public async Task<IActionResult> Delete(long id)
-        //{
-        //    var flight = await db.Flights.FindAsync(id);
-        //    if (flight == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    db.Flights.Remove(flight);
-        //    await db.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
+        public async Task<IActionResult> Delete(int id)
+        {
+            var flight = await db.Flights.FindAsync(id);
+            if (flight == null)
+            {
+                return NotFound();
+            }
+            db.Flights.Remove(flight);
+            await db.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
 
 
 

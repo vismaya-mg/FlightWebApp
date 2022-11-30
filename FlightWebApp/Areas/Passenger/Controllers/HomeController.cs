@@ -92,6 +92,11 @@ namespace FlightWebApp.Areas.Passenger.Controllers
             }
             return View(model);
         }
+        [HttpGet]
+        public IActionResult Booking()
+        {
+            return View();
+        }
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
